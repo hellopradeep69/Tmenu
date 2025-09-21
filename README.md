@@ -27,7 +27,7 @@ chmod +x ~/.local/bin/tmenu.sh
 #### keybind (shortcuts)
 - add in your .tmux.conf
 ```.tmux.conf
-bind-key -r f run-shell "tmux neww ~/.local/bin/tmenu"
+bind-key f run-shell "tmux neww -n 'Tmenu' ~/.local/bin/tmenu.sh"
 ```
 - prefix + f opens the tmenu so you dont have to type it every time you want to open it
 - prefix default it ctrl + b. [weird]
