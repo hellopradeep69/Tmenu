@@ -89,11 +89,11 @@ selected_session=$(echo -e "$sessions" | fzf \
 if [[ "$selected_session" == "[Session from Directory]" ]]; then
     # Use fd if available, otherwise fallback to find
     if command -v fd >/dev/null 2>&1; then
-        dir=$(fd . ~/ --type d --hidden --follow --exclude .git --max-depth 1 | fzf \
+        dir=$(fd . ~/ --type d --follow --exclude .git --max-depth 1 | fzf \
             --prompt="Select directory: " \
             --border --reverse --bind "j:down,k:up,q:abort")
     else
-        dir=$(find ~ -type d -not -path '*/\.git*' 2>/dev/null | fzf \
+        dir=$(find ~ -mindepth 1 -maxdepth 3 -type d -not -path '*/\.git*' 2>/dev/null | fzf \
             --prompt="Select directory: " \
             --border --reverse --bind "j:down,k:up,q:abort")
     fi
