@@ -104,10 +104,18 @@ if [[ "$selected_session" == "[Session from Directory]" ]]; then
 
     # If session already exists, attach. Else create.
     if session_exists "$session_name"; then
-        tmux attach-session -t "$session_name"
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session_name"
+        else
+            tmux attach-session -t "$session_name"
+        fi
     else
         tmux new-session -d -s "$session_name" -c "$dir" -n "main"
-        tmux attach-session -t "$session_name"
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session_name"
+        else
+            tmux attach-session -t "$session_name"
+        fi
     fi
     exit 0
 fi
@@ -179,6 +187,7 @@ session_name=$(echo "$selected_session" | sed 's/\x1b\[[0-9;]*m//g' | awk '{prin
 # -------------------------------
 # SELECT WINDOW
 # -------------------------------
+# comment it out if not need window OPTIONS
 windows=$(tmux list-windows -t "$session_name" -F "#{window_index}: #{window_name}")
 if [ -z "$windows" ]; then
     echo "No windows in session $session_name. Creating one..."
@@ -199,6 +208,7 @@ selected_window=$(
 [ -z "$selected_window" ] && exit 0
 
 window_index=$(echo "$selected_window" | cut -d':' -f1)
+# ----------------- till here
 
 # -------------------------------
 # ATTACH TO SELECTED
