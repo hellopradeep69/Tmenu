@@ -124,8 +124,9 @@ if [[ "$selected_session" == "[New session]" ]]; then
     session_name=$(
         echo "" | fzf \
             --print-query \
-            --prompt="Enter new session name: " \
-            --border --reverse --height=5
+            --prompt="Enter new session name(q to quit): " \
+            --border --reverse \
+            --bind "q:abort"
     )
     session_name=$(echo "$session_name" | head -n1) # take query part
 
