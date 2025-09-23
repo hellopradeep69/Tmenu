@@ -27,6 +27,9 @@ session_exists() {
     tmux has-session -t "$1" 2>/dev/null
 }
 
+# -------------------------------
+# TEMPLATES
+# -------------------------------
 create_template_session() {
     local session_name="$1"
     local template="$2"
@@ -132,7 +135,7 @@ if [[ "$selected_session" == "[New session]" ]]; then
 
     [ -z "$session_name" ] && exit 0
 
-    # Select template
+    # template menu
     template=$(
         printf "project\ndev\nweb\ndefault" | fzf \
             --prompt="Select session template: " \
