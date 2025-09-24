@@ -107,7 +107,12 @@ if [[ "$selected_session" == "[Session from Directory]" ]]; then
 
     [ -z "$dir" ] && exit 0
 
-    session_name=$(basename "$dir" | tr . _ | tr -cd '[:alnum:]_')
+    # default naming but droped due to confusion b/w like ~/bspwm and .config/bspwm
+    # session_name=$(basename "$dir" | tr . _ | tr -cd '[:alnum:]_')
+
+    # used this
+    rel_path=$(realpath --relative-to="$HOME" "$dir" | sed 's|^\.\?||')
+    session_name=$(echo "$rel_path" | tr / _ | tr -cd '[:alnum:]_')
 
     # If session already exists, attach. Else create.
     if session_exists "$session_name"; then
