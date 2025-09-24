@@ -36,23 +36,23 @@ create_template_session() {
 
     case "$template" in
     project)
-        tmux new-session -d -s "$session_name" -n "nvim"
-        tmux new-window -t "$session_name" -n "html"
-        tmux new-window -t "$session_name" -n "logs"
+        tmux new-session -d -s "$session_name" -c "$HOME" -n "nvim"
+        tmux new-window -t "$session_name" -c "$HOME" -n "html"
+        tmux new-window -t "$session_name" -c "$HOME" -n "logs"
         tmux select-window -t "$session_name:1"
         ;;
     dev)
-        tmux new-session -d -s "$session_name" -n "editor"
-        tmux new-window -t "$session_name" -n "server"
-        tmux new-window -t "$session_name" -n "logs"
+        tmux new-session -d -s "$session_name" -c "$HOME" -n "editor"
+        tmux new-window -t "$session_name" -c "$HOME" -n "server"
+        tmux new-window -t "$session_name" -c "$HOME" -n "logs"
         ;;
     web)
-        tmux new-session -d -s "$session_name" -n "frontend"
-        tmux new-window -t "$session_name" -n "backend"
-        tmux new-window -t "$session_name" -n "database"
+        tmux new-session -d -s "$session_name" -c "$HOME" -n "frontend"
+        tmux new-window -t "$session_name" -c "$HOME" -n "backend"
+        tmux new-window -t "$session_name" -c "$HOME" -n "database"
         ;;
     *)
-        tmux new-session -d -s "$session_name" -n "main"
+        tmux new-session -d -s "$session_name" -c "$HOME" -n "main"
         ;;
     esac
 }
