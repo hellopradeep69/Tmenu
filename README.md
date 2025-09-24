@@ -82,8 +82,6 @@ nvim ~/.local/bin/tmenu.sh
     temp)
         tmux new-session -d -s "$session_name" -c "$PWD" -n "nvim" # create a window name nvim
         tmux new-window -t "$session_name" -c "$HOME" -n "xtra" # create second window name xtra
-        tmux split-window -h -t "$session_name:2" -c "#{pane_current_path}" # create split window
-        tmux resize-pane -t "$session_name:2.0" -Z # resize pane ig
         tmux new-window -t "$session_name" -c "$HOME" -n "btop" # third window namely btop
         tmux new-window -t "$session_name" -c "$HOME/.config" -n "config" # -c open tmux server in .config dir
         tmux select-window -t "$session_name:1" # focus session 1
