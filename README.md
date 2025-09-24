@@ -63,6 +63,11 @@ bind-key f run-shell "tmux neww -n 'Tmenu' ~/.local/bin/tmenu.sh"
 
 - Delete might not function well so be aware .
 
+> [!CAUTION]
+> Don’t delete the session you’re currently attached to
+> Zoomed panes can cause crashes
+> Don’t leave tmux empty → keep at least one session.
+
 ---
 
 #### How to add your own template
