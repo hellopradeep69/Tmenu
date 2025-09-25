@@ -66,7 +66,7 @@ sessions=""
 # existing=$(list_sessions)
 # ------------------------
 # it sort by old to new where old stays at top and old at bottom
-existing=$(list_sessions | sort -n -k6)
+existing=$(list_sessions | sort -t: -k2,2n)
 if [ -n "$existing" ]; then
     while read -r line; do
         sessions+=$(format_session "$line")$'\n'
