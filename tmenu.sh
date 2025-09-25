@@ -97,8 +97,7 @@ selected_session=$(echo -e "$sessions" | fzf \
 if [[ "$selected_session" == "[Session from Directory]" ]]; then
     # Use fd if available, otherwise fallback to find
     if command -v fd >/dev/null 2>&1; then
-        # dir=$(fd . ~/ --type d --follow --exclude .git --max-depth 1 --strip-cwd-prefix | fzf \
-        dir=$(fd . ~/ --type d --follow --exclude .git --max-depth 1 | fzf \
+        dir=$(fd -H . ~/ --type d --follow --exclude .git --max-depth 3 | fzf \
             --prompt="Select directory: " \
             --preview 'ls --color=always {}' \
             --preview-window=right:30%:wrap \
@@ -179,7 +178,7 @@ if [[ "$selected_session" == "[Delete session]" ]]; then
                 fzf --prompt="Select session to delete (q to quit): " \
                     \
                     --border \
-                    --reverse \
+                    --cycle --reverse \
                     --bind "j:down,k:up,q:abort" # --height=12 \
         )
 
