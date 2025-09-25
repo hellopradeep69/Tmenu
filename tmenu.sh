@@ -61,7 +61,12 @@ create_template_session() {
 # BUILD SESSION LIST
 # -------------------------------
 sessions=""
-existing=$(list_sessions)
+# default sort order | to use it change the existing to below as comment
+# ----------------------
+# existing=$(list_sessions)
+# ------------------------
+# it sort by old to new where old stays at top and old at bottom
+existing=$(list_sessions | sort -n -k6)
 if [ -n "$existing" ]; then
     while read -r line; do
         sessions+=$(format_session "$line")$'\n'
@@ -92,12 +97,14 @@ selected_session=$(echo -e "$sessions" | fzf \
 if [[ "$selected_session" == "[Session from Directory]" ]]; then
     # Use fd if available, otherwise fallback to find
     if command -v fd >/dev/null 2>&1; then
+        # dir=$(fd . ~/ --type d --follow --exclude .git --max-depth 1 --strip-cwd-prefix | fzf \
         dir=$(fd . ~/ --type d --follow --exclude .git --max-depth 1 | fzf \
             --prompt="Select directory: " \
             --preview 'ls --color=always {}' \
             --preview-window=right:30%:wrap \
             --border --reverse --bind "j:down,k:up,q:abort")
     else
+        # dir=$(find ~ -mindepth 1 -maxdepth 3 -type d -not -path '*/\.git*' 2>/dev/null | sed "s|$HOME/||" | fzf \
         dir=$(find ~ -mindepth 1 -maxdepth 3 -type d -not -path '*/\.git*' 2>/dev/null | fzf \
             --prompt="Select directory: " \
             --preview 'ls --color=always {}' \
